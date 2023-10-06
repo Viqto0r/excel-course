@@ -1,0 +1,13 @@
+{
+  "parcer": "babel-esling",
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "semi": "off",
+    "comma-dangle": "off"
+  },
+  "extends": ["eslint:recommended", "google"]
+}
