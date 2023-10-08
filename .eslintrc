@@ -8,7 +8,13 @@
   "rules": {
     "semi": "off",
     "comma-dangle": "off",
-    "linebreak-style": 0
+    "linebreak-style": "off",
+    "object-curly-spacing": "off",
+    "require-jsdoc": "off",
+    "no-unused-vars": "warn",
+    "spaced-comment": "off",
+    "no-tabs": "off",
+    "indent": "off"
   },
   "extends": ["eslint:recommended", "google"]
 }
