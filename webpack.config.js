@@ -28,7 +28,7 @@ console.log('IS PROD', isProd)
 console.log('IS DEV', isDev)
 
 module.exports = {
-  context: path.resolve(__dirname, 'src'), // указываем папку с исходниками. __dirname - абсолютный путь к проекту
+  context: path.resolve(__dirname, 'src'), // указываем папку с исходниками, относительно этой папки будут начинатсья все пути. __dirname - абсолютный путь к проекту
   mode: 'development', // устанавливаем режим компиляции development или production
   entry: ['@babel/polyfill', './index.js'], // точка входа. Если много файлов, то нужно создавать объект. @babel/polyfill - полифил для нового кода
   output: {
@@ -79,14 +79,14 @@ module.exports = {
     }),
   ],
   module: {
+    //Лоадеры - обрабатывают файлы, которые подключены к точке входа (index.js)
     rules: [
       // loaders идут справа на лево
       {
         // Loaders для стилей
-        test: /\.s[ac]ss$/i, // ищем файлы по расширению
+        test: /\.s[ac]ss$/i, // ищем файлы по расширению. Регулярное выражение
         use: [
           // Creates `style` nodes from JS strings
-
           MiniCssExtractPlugin.loader, // Минификация css
           'css-loader', //Установить плагин css-loader
           // Compiles Sass to CSS
