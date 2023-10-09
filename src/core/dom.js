@@ -24,6 +24,14 @@ class Dom {
     this.$el.removeEventListener(event, callback)
   }
 
+  get data() {
+    return this.$el.dataset
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
   append(...nodes) {
     // Проверяем если nodes кастомные то преобразуем в стандартные
     const fixedNodes = nodes.map((node) =>
@@ -31,6 +39,22 @@ class Dom {
     )
     this.$el.append(...fixedNodes)
     return this
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
+  css(styles = {}) {
+    for (const style in styles) {
+      if (Object.prototype.hasOwnProperty.call(styles, style)) {
+        this.$el.style[style] = styles[style]
+      }
+    }
   }
 }
 
