@@ -60,6 +60,11 @@
       border: none;
       outline: 2px solid $primary-color;
       z-index: 2;
+      outline-offset: -2px;
+    }
+
+    &.inArea {
+      background-color: rgba(14, 101, 235, 0.1);
     }
   }
 
