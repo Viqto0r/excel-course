@@ -7,7 +7,9 @@ const createRow = (dataContent, infoContent = '') => {
   const resize = infoContent
     ? '<div class="row-resize" data-resize="row"></div>'
     : ''
-  return `<div class="row" data-type="resizable">
+  return `<div class="row" data-type="resizable" data-row-count=${
+    infoContent - 1
+  }>
             <div class="row-info">${infoContent}${resize}</div>
             <div class="row-data">
               ${dataContent}
@@ -15,9 +17,17 @@ const createRow = (dataContent, infoContent = '') => {
           </div>
 	`
 }
-const toCell = (_, idx) => {
-  return `<div class="cell" contenteditable data-col-count="${idx}"></div>`
+const toCell = (row) => {
+  return (_, col) => {
+    return `<div 
+		class="cell"
+		contenteditable
+		data-col-count="${col}" 
+		data-id="${row}:${col}"
+		></div>`
+  }
 }
+
 const toColumn = (content, idx) => {
   return `
 		<div
@@ -42,10 +52,10 @@ export const createTable = (rowCount = 15) => {
 
   rows.push(createRow(firstContentRow))
 
-  for (let i = 0; i < rowCount; i++) {
-    const rowContent = new Array(colCount).fill('').map(toCell).join('')
+  for (let row = 0; row < rowCount; row++) {
+    const rowContent = new Array(colCount).fill('').map(toCell(row)).join('')
 
-    rows.push(createRow(rowContent, i + 1))
+    rows.push(createRow(rowContent, row + 1))
   }
 
   return rows.join('')

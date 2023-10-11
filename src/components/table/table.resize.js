@@ -27,7 +27,7 @@ export const resizeHandler = (event, $root) => {
     const idx = $parent.data.colCount
     if (resizeType === 'col') {
       const col = $root.findAll(`[data-col-count="${idx}"]`)
-      col.forEach((cell) => {
+      col.$el.forEach((cell) => {
         value = parentCoords.width + delta + resizerCoords.width
         $(cell).css({ width: value + 'px' })
       })
