@@ -15,7 +15,9 @@
     "spaced-comment": "off",
     "no-tabs": "off",
     "indent": "off",
-    "operator-linebreak": "off"
+    "operator-linebreak": "off",
+    "max-len": ["warn", { "ignoreComments": true }],
+    "space-before-function-paren": "off"
   },
   "extends": ["eslint:recommended", "google"]
 }

@@ -25,6 +25,10 @@ export default class TableSelection {
     })
   }
 
+  get selectedIds() {
+    return this.group.map(($cell) => $cell.id())
+  }
+
   switchCell(key, limits) {
     const { col, row } = this.curentSelected.id(true)
     const selector = nextSelector(key, col, row, limits)
@@ -35,5 +39,9 @@ export default class TableSelection {
   clear() {
     this.group.forEach(($el) => $el.removeClass(TableSelection.className))
     this.group = []
+  }
+
+  applyStyles(style) {
+    this.group.forEach(($el) => $el.css(style))
   }
 }
