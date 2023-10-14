@@ -1,16 +1,10 @@
+import { range } from '../../core/utils'
+
 export const shouldResize = (event) => event.target.dataset.resize
 export const isCell = (event) => event.target.dataset.id
 export const shouldSwitchCell = (event) =>
   /(ArrowRight|ArrowLeft|ArrowUp|ArrowDown|Tab|Enter)/.test(event.key) &&
   !event.shiftKey
-
-const range = (start, end) => {
-  start > end && ([start, end] = [end, start])
-
-  return Array(end - start + 1)
-    .fill('')
-    .map((_, idx) => idx + start)
-}
 
 export const matrix = ($current, $target) => {
   const current = $current.id(true)

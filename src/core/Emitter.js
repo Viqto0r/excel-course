@@ -6,6 +6,7 @@ export class Emitter {
   // Вызываем событие с данными
   // Аналогичные названия dipatch, trigger
   emit(event, ...data) {
+    // Если нет подписки на событие event прерываем работу функции
     if (!Array.isArray(this.listeners[event])) return false
 
     // Ищем событие по ключу event в объекте с событиями

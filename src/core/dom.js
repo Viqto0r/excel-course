@@ -12,8 +12,17 @@ class Dom {
     return this.$el.outerHTML.trim()
   }
 
+  attr(key, value) {
+    if (typeof value === 'string') {
+      this.$el.setAttribute(key, value)
+      return this
+    }
+
+    return this.$el.getAttribute(key)
+  }
+
   text(text) {
-    if (typeof text === 'string') {
+    if (typeof text !== 'undefined') {
       this.$el.textContent = text
       return this
     }
@@ -57,7 +66,8 @@ class Dom {
   }
 
   closest(selector) {
-    return $(this.$el.closest(selector))
+    const $findedEl = this.$el.closest(selector)
+    return $findedEl ? $($findedEl) : null
   }
 
   getCoords() {
@@ -70,6 +80,13 @@ class Dom {
         this.$el.style[style] = styles[style]
       }
     }
+  }
+
+  getStyles(styles = []) {
+    return styles.reduce((acc, style) => {
+      acc[style] = this.$el.style[style]
+      return acc
+    }, {})
   }
 
   id(parse) {
