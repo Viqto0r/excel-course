@@ -35,7 +35,6 @@ export class Formula extends ExcelComponent {
 
     // Подписываемся на событие выбора ячейки cell:select, для отображения данных ячейки в формуле
     this.$on('cell:select', ($cell) => {
-      //this.$formula.text(text)
       this.$formula.text($cell.text())
     })
   }
@@ -46,7 +45,6 @@ export class Formula extends ExcelComponent {
 
   onInput(event) {
     // Отправляем событие formula:input при вводе в формулу, для отображения данных в ячейке
-
     this.$emit('formula:input', $(event.target).text())
   }
 

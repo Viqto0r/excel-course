@@ -42,7 +42,9 @@ export class Table extends ExcelComponent {
 
     // Подписываемся на событие formula:input, для изменения данных в ячейке при изменении данных в формуле
     this.$on('formula:input', (text) => {
+      // записываем текст из формулы в data атрибут ячейки
       this.selector.curentSelected.attr('data-value', text).text(parse(text))
+      // обновляем данные в стейте
       this.updateTextInStore(text)
     })
 
@@ -125,8 +127,8 @@ export class Table extends ExcelComponent {
     }
   }
 
+  // При вводе текста в ячейку обновляем глобальный стейт и текст в формуле
   updateTextInStore(currentText) {
-    console.log(currentText)
     this.$dispatch(
       actions.changeText({
         id: this.selector.curentSelected.id(),
@@ -137,8 +139,6 @@ export class Table extends ExcelComponent {
 
   onInput(event) {
     // При вводе в ячейку изменяем текст в формуле
-    //const text = $(event.target).text()
-    //this.$emit('cell:input', text)
     this.updateTextInStore($(event.target).text())
   }
 }

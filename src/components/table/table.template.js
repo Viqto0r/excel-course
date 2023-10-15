@@ -42,7 +42,7 @@ const createRow = (dataContent, rowIdx, rowSize) => {
 const toCell = (row, colSize, dataState, stylesState) => {
   return (_, col) => {
     const id = `${row}:${col}`
-    //const defStyles = stylesState[id] || defaultStyles
+
     const styles = toInlineStyles({ ...defaultStyles, ...stylesState[id] })
 
     return `<div 
