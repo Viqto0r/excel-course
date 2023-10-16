@@ -9,6 +9,9 @@ const defaultState = {
   currentText: '',
   title: defaultTitle,
   currentStyles: defaultStyles,
+  openDate: Date.now().toString(),
 }
 
-export const initialState = storage('excel-table') || defaultState
+export const getInitialStateFromLocalstorage = (param) => {
+  return storage(`excel:${param}`) || defaultState
+}

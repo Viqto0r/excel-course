@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
@@ -76,6 +77,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Этот плагин извлекает CSS в отдельные файлы. Он создает файл CSS для каждого файла JS, который содержит CSS.
       filename: filename('css'), // имя выходного файла. Смотри функцию filename
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV), // в любых файлах проекта есть доступ к переменной process.env.NODE_ENV, она будет равна "production" или "development". Можно в зависимости от состояния сборки внедрять разные условия в проект
     }),
   ],
   module: {

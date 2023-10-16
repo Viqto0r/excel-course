@@ -34,6 +34,7 @@ class Dom {
 
   clear() {
     this.html('')
+    return this
   }
 
   on(event, callback) {
