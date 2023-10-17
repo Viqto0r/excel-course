@@ -10,14 +10,15 @@ const isDev = !isProd
 
 const filename = (ext) => (isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`) // принимает расширение и в зависимости от режима(prod или dev) волзвращает имя с hash или без + расширение
 const jsLoaders = () => {
-  const loaders = [
-    {
-      loader: 'babel-loader',
-      options: {
-        presets: ['@babel/preset-env'],
-      },
-    },
-  ]
+  //const loaders = [
+  //  {
+  //    loader: 'babel-loader',
+  //    options: {
+  //      presets: ['@babel/preset-env'],
+  //    },
+  //  },
+  //] // Настраивали для разработки
+  const loaders = ['babel-loader'] // настройка для jest
   if (isDev) {
     // Если в режиме разработки то добавляем лоадер eslint для js
     loaders.push('eslint-loader')
