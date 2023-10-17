@@ -1,5 +1,4 @@
 import { defaultStyles, defaultTitle } from '../constans'
-import { storage } from '../core/utils'
 
 const defaultState = {
   rowSize: {},
@@ -11,7 +10,7 @@ const defaultState = {
   currentStyles: defaultStyles,
   openDate: Date.now().toString(),
 }
-
-export const getInitialStateFromLocalstorage = (param) => {
-  return storage(`excel:${param}`) || defaultState
+// Возвращем стейт или defaultState
+export const normalizeInitialState = (state) => {
+  return state || defaultState
 }

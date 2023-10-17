@@ -3,29 +3,30 @@ import { Toolbar } from '../components/toolbar/Toolbar'
 import { Header } from '../components/header/Header'
 import { Formula } from '../components/formula/Formula'
 import { Table } from '../components/table/Table'
-import { debounce, storage } from '../core/utils'
-import { Page } from './Page'
+import { Page } from '../core/page/Page'
 import { createStore } from '../core/store/createStore'
 import { rootReducer } from '../redux/rootReducer'
-import { getInitialStateFromLocalstorage } from '../redux/initialState'
-
-const storageName = (param) => {
-  return `excel:${param}`
-}
+import { normalizeInitialState } from '../redux/initialState'
+import { StateProcessor } from '../core/page/StateProcessor'
+import { LocalStorageClient } from '../shared/LocalStorageClient'
 
 export class ExcelPage extends Page {
-  getRoot() {
-    // Получаем параметры маршрута - #hash/"Параметры". Если #excel/без параметров, то генерируем их Date.now()
-    const params = this.params || Date.now()
-    // Получаем начальное состояние из localstorage в зависимости от параметров
-    const initialState = getInitialStateFromLocalstorage(params)
+  constructor(param) {
+    super(param)
+
+    this.storeSub = null // подписка на хранилище
+    this.processor = new StateProcessor(new LocalStorageClient(this.params)) // Инициализируем обработчик хранилища
+  }
+
+  async getRoot() {
+    // Получаем начальное состояние из localstorage или БАЗЫ ДАННЫХ в зависимости от клиента
+    const state = await this.processor.get()
+    // Обрабатываем стейт. Если его не было в хранилище === null, то делаем его defaultState
+    const initialState = normalizeInitialState(state)
     // Создаем стор на основе initialState
     const store = createStore(rootReducer, initialState)
-    // Обновляем localstorage с задержкой для оптимизации производительности. Прогоняем через функцию debounce
-    const stateLater = debounce((state) => {
-      storage(storageName(params), state)
-    }, 300)
-    store.subscribe(stateLater)
+    // Сохраняем подписку на стор, для дальнейшей отписки
+    this.storeSub = store.subscribe(this.processor.listen)
     // Создаем инстанс класса Excel
     this.excel = new Excel({
       components: [Header, Toolbar, Formula, Table],
@@ -41,5 +42,6 @@ export class ExcelPage extends Page {
 
   destroy() {
     this.excel.destroy()
+    this.storeSub.unsubscribe()
   }
 }
