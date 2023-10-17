@@ -1,9 +1,9 @@
 import { $ } from '../core/dom'
-import { Page } from './Page'
-import { createRecordsTable } from './dashboard.functions'
+import { Page } from '../core/page/Page'
+import { createRecordsTable } from '../shared/dashboard.functions'
 
 export class DashboardPage extends Page {
-  getRoot() {
+  async getRoot() {
     // Генерируем Id
     const id = Date.now()
     return $.create('div', 'db').html(`

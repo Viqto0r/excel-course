@@ -1,5 +1,5 @@
 import { Router } from './Router'
-import { Page } from './../../pages/Page'
+import { Page } from '../page/Page'
 
 class Dashboard extends Page {
   getRoot() {

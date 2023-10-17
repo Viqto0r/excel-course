@@ -5,7 +5,7 @@ export class ActiveRoute {
   }
   // получаем параметры после hash
   static get param() {
-    return this.path.split('/')[1]
+    return this.path.split('/')[1] || ''
   }
 
   static navigate(path) {
