@@ -5,7 +5,7 @@ import { Formula } from '../components/formula/Formula'
 import { Table } from '../components/table/Table'
 import { debounce, storage } from '../core/utils'
 import { Page } from './Page'
-import { createStore } from '../core/createStore'
+import { createStore } from '../core/store/createStore'
 import { rootReducer } from '../redux/rootReducer'
 import { getInitialStateFromLocalstorage } from '../redux/initialState'
 
